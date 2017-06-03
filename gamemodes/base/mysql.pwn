@@ -497,6 +497,13 @@ Dialog:SEC_ANSWER(playerid, response, listitem, inputtext[])
 forward OnPlayerRegister(playerid);
 public OnPlayerRegister(playerid)
 {
+    if(cache_affected_rows() == 0)
+    {
+         SendClientMessage(playerid, -1, "Unable to register. Please relog.");
+	 cache_unset_active();
+	 return Kick(playerid);
+    }
+ 
     eUser[playerid][e_USER_SQLID] = cache_insert_id();
     cache_unset_active();
 }
